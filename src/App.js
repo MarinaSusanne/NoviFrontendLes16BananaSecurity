@@ -7,9 +7,11 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import './App.css';
 import {AuthContext} from "./context/AuthContext";
+import {useForm} from "react-hook-form";
 
 function App() {
-  const {isAuthenticated} = useContext(AuthContext);
+  const {isAuth} = useContext(AuthContext);
+  const {register} =useForm();
 
   return (
     <>
@@ -19,7 +21,7 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/profile"> {isAuthenticated ? <Profile /> : <Redirect to="/" />}
+          <Route path="/profile"> {isAuth ? <Profile /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/signin">
             <SignIn />

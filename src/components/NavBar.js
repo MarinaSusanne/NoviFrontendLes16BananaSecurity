@@ -21,7 +21,7 @@ function NavBar() {
         </Link>
 
       <div>
-        {whatsInTheContext.isAuthenticated  ?
+        {whatsInTheContext.isAuth  ?
           <button
           type="button"
           onClick={(whatsInTheContext.logOutFunction)}
