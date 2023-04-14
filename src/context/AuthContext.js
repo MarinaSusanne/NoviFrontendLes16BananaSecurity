@@ -1,31 +1,36 @@
 import React, { createContext, useState } from 'react';
-import {NavLink, useHistory} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
+import axios from 'axios';
 
 export const AuthContext = createContext({});
 
 function AuthContextProvider ({children}) {
-    const [isAuth, toggleIsAuth] = useState(false);
-    const history = useHistory();
+    const [isAuth, toggleIsAuth] = useState({
+        isAuth: false,
+        user: null,
+    });
+    const navigate = useNavigate();
 
-    function logIn(){
-     toggleIsAuth(true);
+    function logIn(token){
+        toggleIsAuth(true);
         console.log('gebruiker is ingelogd');
+        localStorage.setItem('token', token);
+        navigate('/profile')
     }
 
     function logOut(){
-    toggleIsAuth(false);
+        toggleIsAuth(false);
         console.log('gebruiker is uitgelogd');
-        history.push('/');
+        navigate('/');
     }
 
-
 const data = {
+    //mag ook dezelfde naam gebruiken
     isAuthenticated: isAuth,
-    logInFunction: logIn,
-    logOutFunction: logOut,
+    logIn: logIn,
+    logOut: logOut,
     banaan:'geel',
 }
-
 
     return (
     <AuthContext.Provider
