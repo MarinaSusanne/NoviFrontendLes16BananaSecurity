@@ -8,10 +8,13 @@ import SignUp from './pages/SignUp';
 import './App.css';
 import {AuthContext} from "./context/AuthContext";
 import {useForm} from "react-hook-form";
+import {NavLink, useNavigate} from "react-router-dom";
 
 function App() {
   const {isAuth} = useContext(AuthContext);
-  const {register} =useForm();
+  const {register} = useForm();
+
+
 
   return (
     <>
@@ -19,7 +22,7 @@ function App() {
       <div className="content">
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/profile" element={isAuth ? <Profile/> : <Home/> }/>
+          <Route path="/profile" element={ isAuth ? <Profile/> : <Home/>}/>
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/signup" element={<SignUp/>}/>
         </Routes>
@@ -27,5 +30,6 @@ function App() {
     </>
   );
 }
+
 
 export default App;

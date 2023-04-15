@@ -7,7 +7,7 @@ import axios from "axios";
 
 
 function SignIn() {
-    //dit mag uiteraard korter, namelijk const {login } =useContext, maar de nu even zo
+    //dit mag uiteraard korter, namelijk const {login } =useContext, maar de nu even zo, want Nova gebruikt de 'whatsinthecontext' en is voor mezelf fijn
     const whatsInTheContext  = useContext(AuthContext);
     console.log(whatsInTheContext);
     const {register, formState: {errors}, handleSubmit} = useForm({mode:"onChange"});
@@ -24,13 +24,12 @@ function SignIn() {
                password: data.password,
            })
            console.log(result);
-           const token = result.data.accessToken;
-           whatsInTheContext.logIn(token);
+           const JWT = result.data.accessToken;
+           whatsInTheContext.logIn(JWT);
            navigate('/profile');
        } catch (e) {
            console.log(e)
            toggleError(true);
-
        }
        toggleLoading(false);
    }
