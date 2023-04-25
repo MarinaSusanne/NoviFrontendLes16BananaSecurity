@@ -20,13 +20,12 @@ function AuthContextProvider ({children}) {
     useEffect(() => {
             //is er een token?
             const token = localStorage.getItem('token');
-    //TODO:moet nog een fromToken helper functie gemaakt worden.
             //als token truthy is (en dus staat er iets in storage) en dus gevuld en token in de functie true is en dus geldig
             if (token && fromTokentoDate(token)) {
                 const decodedToken = jwt_decode(token);
                 void fetchDataUser(token, decodedToken.sub);
             }
-            else{
+            else {
                 toggleIsAuth({
                     isAuth: false,
                     user: null,
@@ -35,7 +34,6 @@ function AuthContextProvider ({children}) {
             }
         },
         []);
-    }
 
     const navigate = useNavigate();
 
@@ -75,11 +73,12 @@ function AuthContextProvider ({children}) {
         localStorage.removeItem('token');
         toggleIsAuth({
             isAuth: false,
-            user: null
+            user: null,
+            status: 'done',
         });
         console.log('gebruiker is uitgelogd');
         navigate('/');
-    }
+    };
 
 const data = {
     //mag ook dezelfde naam
@@ -90,14 +89,15 @@ const data = {
     logIn: logIn,
     logOut: logOut,
     banaan:'geel',
-}
+    };
 
     return (
     <AuthContext.Provider value={data}>
-        { isAuth.status ==='done' ? children : <p> Loading...</p>}
-      </AuthContext.Provider>
-            )
+        {isAuth.status === 'done' ? children : <p> Loading...</p>}
+    </AuthContext.Provider>
+    )  ;
 }
+
 
 export default AuthContextProvider
 
